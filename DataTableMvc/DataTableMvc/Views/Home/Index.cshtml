@@ -1,0 +1,59 @@
+﻿@{
+  ViewBag.Title = "Index";
+}
+
+<div class="row">
+  <div class="col-md-4">
+    <h2>Filtros</h2>
+    <div class="panel panel-default well">
+      <div class="panel-body">
+        <form id="filtros" role="form">
+          <div class="form-group">
+            <label for="compania">Compania</label>
+            <input id="compania" name="compania" type="text" class="form-control dt-filtro" placeholder="compania">
+          </div>
+          <div class="form-group">
+            <label for="pais">Pais</label>
+            <input id="pais" name="pais" type="text" class="form-control dt-filtro" placeholder="pais">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Check me out
+            </label>
+          </div>
+          <button id="bt-submit" type="submit" class="btn btn-default">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <h2>Resultado</h2>
+    <table id="resultado" class="display" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>compania</th>
+          <th>pais</th>
+          <th>preco</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>id</th>
+          <th>compania</th>
+          <th>pais</th>
+          <th>preco</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+@section styles{
+<link href="~/Content/DataTables-1.10.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+<script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/Home/index.js"></script>
+}
