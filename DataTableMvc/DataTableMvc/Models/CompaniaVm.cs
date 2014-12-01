@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace DataTableMvc.Models
 {
-    public class CompaniaVm : JQueryDataTableParamModel
+    public class CompaniaVm : JQueryDataTableParamModel // DataTables.Mvc.DefaultDataTablesRequest // 
     {
         public string id { get; set; }
         public string compania { get; set; }
