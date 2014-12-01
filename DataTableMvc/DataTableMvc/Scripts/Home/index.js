@@ -28,8 +28,11 @@
 
     dataTable = $('#resultado').DataTable({
         "language": { "url": '/Scripts/DataTables-1.10.3/Portuguese-Brasil.json' },
+        "autoWidth": true,
         "paging": true,
         "ordering": true,
+        "filter": false,
+        "lengthChange": false,
         "processing": true,
         "serverSide": true,
         "columnDefs": [
