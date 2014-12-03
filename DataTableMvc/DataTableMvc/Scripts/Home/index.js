@@ -5,7 +5,7 @@
         return ' \
 <div class="btn-group">                                                                                       \
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> \
-    <span class="glyphicon glyphicon-align-justify"></span>                                                   \
+    <span class="fa fa-bars"></span>                                                   \
   </button>                                                                                                   \
   <ul class="dropdown-menu" role="menu">                                                                      \
     <li><a href="/Home/Action/"        data-id="' + data[0] + '">Action</a></li>                              \
