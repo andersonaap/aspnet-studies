@@ -1,4 +1,6 @@
-﻿@{
+﻿@using DataTableMvc.Models;
+@model CompaniaVm
+@{
   ViewBag.Title = "Index";
 }
 
@@ -7,22 +9,26 @@
     <h2>Filtros</h2>
     <div class="panel panel-default well">
       <div class="panel-body">
-        <form id="filtros" role="form">
+        @using (Html.BeginForm(null, null, FormMethod.Get, new { id="filtros", role="form" }))
+        {
+          @Html.ValidationSummary(true, "", new { @class = "text-danger" })
           <div class="form-group">
-            <label for="compania">Compania</label>
-            <input id="compania" name="compania" type="text" class="form-control dt-filtro" placeholder="compania">
+              @Html.LabelFor(model => model.compania)
+              @Html.TextBoxFor(model => model.compania, new { @class = "form-control dt-filtro", placeholder = "Compania" })
+              @Html.ValidationMessageFor(model => model.compania, "", new { @class = "text-danger" })
           </div>
           <div class="form-group">
-            <label for="pais">Pais</label>
-            <input id="pais" name="pais" type="text" class="form-control dt-filtro" placeholder="pais">
+            @Html.LabelFor(model => model.pais, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.pais, new { @class = "form-control dt-filtro", placeholder="País" })
+            @Html.ValidationMessageFor(model => model.pais, "", new { @class = "text-danger" })
           </div>
           <div class="checkbox">
             <label>
               <input type="checkbox"> Check me out
             </label>
           </div>
-          <button type="submit" class="btn btn-primary">Pesquisar</button>
-        </form>
+          <button id="enviar" type="submit" class="btn btn-primary">Pesquisar</button>
+        }
       </div>
     </div>
   </div>
@@ -57,6 +63,7 @@
 }
 
 @section scripts{
+@Scripts.Render("~/bundles/jqueryval")
 <script src="~/Scripts/DataTables-1.10.3/jquery.dataTables.min.js"></script>
 <script src="~/Scripts/Home/index.js"></script>
 }

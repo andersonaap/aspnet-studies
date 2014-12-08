@@ -16,7 +16,10 @@
 
     $('#filtros').on('submit', function (e) {
         e.preventDefault();
-        dataTable.draw();
+        e.stopPropagation();
+        if ($(this).valid()) {
+            dataTable.draw();
+        }
     });
 
     $('#resultado').on('draw.dt', function () {
