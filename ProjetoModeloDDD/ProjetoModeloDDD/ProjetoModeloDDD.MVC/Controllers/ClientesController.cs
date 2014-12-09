@@ -54,24 +54,25 @@ namespace ProjetoModeloDDD.MVC.Controllers
         // GET: /Clientes/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var clienteDomain = _clienteRepository.GetById(id);
+            var cliente = Mapper.Map<Cliente, ClienteViewModel>(clienteDomain);
+            return View(cliente);
         }
 
         //
         // POST: /Clientes/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ClienteViewModel cliente)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var clienteDomain = Mapper.Map<ClienteViewModel, Cliente>(cliente);
+                _clienteRepository.Update(clienteDomain);
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(cliente);
         }
 
         //
