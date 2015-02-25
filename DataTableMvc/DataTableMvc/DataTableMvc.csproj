@@ -206,7 +206,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
-    <None Include="Scripts\DataTables-1.10.3\Portuguese-Brasil.json" />
+    <Content Include="Scripts\DataTables-1.10.3\Portuguese-Brasil.json" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables-1.10.3\dataTables.autoFill.min.js" />
