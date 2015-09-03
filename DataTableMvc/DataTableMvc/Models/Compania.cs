@@ -7,11 +7,11 @@ using System.Xml.Linq;
 
 namespace DataTableMvc.Models
 {
-    public class CompaniaVm // : JQueryDataTableParamModel // DataTables.Mvc.DefaultDataTablesRequest // 
+    public class CompaniaVm 
     {
         public string id { get; set; }
 
-        [MinLength(3, ErrorMessage="Preencher ao menos 3 caracteres")]
+        [MinLength(2, ErrorMessage="Preencher ao menos {1} caracteres")]
         [Display(Name = "Compania")]
         public string compania { get; set; }
 

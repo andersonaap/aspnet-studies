@@ -122,8 +122,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CompaniaVm.cs" />
-    <Compile Include="Models\JQueryDataTableParamModel.cs" />
+    <Compile Include="Models\Compania.cs" />
+    <Compile Include="Models\DataTables\DataTables.cs" />
+    <Compile Include="Models\DataTables\DataTablesLegacy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -264,7 +265,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <PropertyGroup>
