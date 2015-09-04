@@ -21,7 +21,25 @@ namespace DataTableMvc.Controllers
                 && (vm.pais     == null || x.pais.ToLower().Contains(vm.pais.ToLower()))
             );
 
-            var companiasExibidas = companiasFiltradas.Skip(param.start).Take(param.length);
+            var companiasOrdenadas = companiasFiltradas.OrderBy(_ => true); // gambiarra para criar o IOrderedEnumerable
+
+            foreach (var order in param.order)
+            {
+                companiasOrdenadas =
+                      order.column == 0 && order.dir == "asc"  ? companiasOrdenadas.ThenBy(x => int.Parse(x.id))
+                    : order.column == 0 && order.dir == "desc" ? companiasOrdenadas.ThenByDescending(x => int.Parse(x.id))
+                    : order.column == 1 && order.dir == "asc"  ? companiasOrdenadas.ThenBy(x => x.compania)
+                    : order.column == 1 && order.dir == "desc" ? companiasOrdenadas.ThenByDescending(x => x.compania)
+                    : order.column == 2 && order.dir == "asc"  ? companiasOrdenadas.ThenBy(x => x.pais)
+                    : order.column == 2 && order.dir == "desc" ? companiasOrdenadas.ThenByDescending(x => x.pais)
+                    : order.column == 3 && order.dir == "asc"  ? companiasOrdenadas.ThenBy(x => x.preco)
+                    : order.column == 3 && order.dir == "desc" ? companiasOrdenadas.ThenByDescending(x => x.preco)
+                    : companiasOrdenadas;
+            }
+
+            var t = companiasOrdenadas.ToArray();
+
+            var companiasExibidas = companiasOrdenadas.Skip(param.start).Take(param.length);
             var companiasProjetadas = companiasExibidas.Select(c => (object)new { c.id, c.compania, c.pais, c.preco, options = c.id });
 
             var ret = new DataTablesResponse<object>

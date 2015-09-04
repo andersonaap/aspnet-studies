@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
+using Antlr.Runtime.Tree;
 
 namespace DataTableMvc.Models
 {
@@ -40,7 +41,6 @@ namespace DataTableMvc.Models
 
             return companias;
         }
-
 
 
         const string xml = @"
@@ -218,6 +218,30 @@ namespace DataTableMvc.Models
         <compania>At Auctor Ullamcorper Incorporated</compania>
         <pais>Bulgaria</pais>
         <preco>$23.29</preco>
+    </produto>
+    <produto>
+        <id>30</id>
+        <compania>_compania1</compania>
+        <pais>_pais1</pais>
+        <preco>$1.0</preco>
+    </produto>
+    <produto>
+        <id>31</id>
+        <compania>_compania2</compania>
+        <pais>_pais1</pais>
+        <preco>$1.0</preco>
+    </produto>
+    <produto>
+        <id>32</id>
+        <compania>_compania1</compania>
+        <pais>_pais2</pais>
+        <preco>$1.0</preco>
+    </produto>
+    <produto>
+        <id>33</id>
+        <compania>_compania2</compania>
+        <pais>_pais2</pais>
+        <preco>$1.0</preco>
     </produto>
 </produtos>
 ";
