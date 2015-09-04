@@ -12,7 +12,7 @@ namespace DataTableMvc.Controllers
 {
     public class CompaniaController : Controller
     {
-        public JsonResult Index(DataTableRequest param, CompaniaVm vm)
+        public JsonResult Index(DataTableRequest req, CompaniaVm vm)
         {
             var todasCompanias = CompaniaRepository.Obter();
 
@@ -22,8 +22,7 @@ namespace DataTableMvc.Controllers
             );
 
             var companiasOrdenadas = companiasFiltradas.OrderBy(_ => true); // gambiarra para criar o IOrderedEnumerable
-
-            foreach (var order in param.order)
+            foreach (var order in req.order)
             {
                 companiasOrdenadas =
                       order.column == 0 && order.dir == "asc"  ? companiasOrdenadas.ThenBy(x => int.Parse(x.id))
@@ -37,20 +36,19 @@ namespace DataTableMvc.Controllers
                     : companiasOrdenadas;
             }
 
-            var t = companiasOrdenadas.ToArray();
+            var companiasExibidas = companiasOrdenadas.Skip(req.start).Take(req.length);
 
-            var companiasExibidas = companiasOrdenadas.Skip(param.start).Take(param.length);
             var companiasProjetadas = companiasExibidas.Select(c => (object)new { c.id, c.compania, c.pais, c.preco, options = c.id });
 
-            var ret = new DataTablesResponse<object>
+            var resp = new DataTablesResponse<object>
             {
-                draw = param.draw,
+                draw = req.draw,
                 recordsTotal = todasCompanias.Count(),
                 recordsFiltered = companiasFiltradas.Count(),
                 data = companiasProjetadas.ToArray(),
             };
 
-            return Json(ret, JsonRequestBehavior.AllowGet);
+            return Json(resp, JsonRequestBehavior.AllowGet);
         }
 
         // exemplo com a api legada
