@@ -21,20 +21,25 @@ namespace DataTableMvc.Controllers
                 && (vm.pais     == null || x.pais.ToLower().Contains(vm.pais.ToLower()))
             );
 
-            var companiasOrdenadas = companiasFiltradas.OrderBy(_ => true); // gambiarra para criar o IOrderedEnumerable
-            foreach (var order in req.order)
+
+            var ordernadores = new Dictionary<int, Func<CompaniaVm, IComparable>>
             {
-                companiasOrdenadas =
-                      order.column == 0 && order.dir == "asc"  ? companiasOrdenadas.ThenBy(x => int.Parse(x.id))
-                    : order.column == 0 && order.dir == "desc" ? companiasOrdenadas.ThenByDescending(x => int.Parse(x.id))
-                    : order.column == 1 && order.dir == "asc"  ? companiasOrdenadas.ThenBy(x => x.compania)
-                    : order.column == 1 && order.dir == "desc" ? companiasOrdenadas.ThenByDescending(x => x.compania)
-                    : order.column == 2 && order.dir == "asc"  ? companiasOrdenadas.ThenBy(x => x.pais)
-                    : order.column == 2 && order.dir == "desc" ? companiasOrdenadas.ThenByDescending(x => x.pais)
-                    : order.column == 3 && order.dir == "asc"  ? companiasOrdenadas.ThenBy(x => x.preco)
-                    : order.column == 3 && order.dir == "desc" ? companiasOrdenadas.ThenByDescending(x => x.preco)
-                    : companiasOrdenadas;
-            }
+                {0, x => int.Parse(x.id)},
+                {1, x => x.compania},
+                {2, x => x.pais},
+                {3, x => x.preco},
+            };
+            var direcionadores = new Dictionary<string, Func<int, IOrderedEnumerable<CompaniaVm>, IOrderedEnumerable<CompaniaVm>>>
+            {
+                { "asc", (i, x) => x.ThenBy(ordernadores[i]) },
+                { "desc", (i, x) => x.ThenByDescending(ordernadores[i]) },
+            };
+
+            var companiasOrdenadas = companiasFiltradas.OrderBy(_ => true); // gambiarra para criar o IOrderedEnumerable
+
+            companiasOrdenadas = req.order
+                .Where(o => ordernadores.ContainsKey(o.column) && direcionadores.ContainsKey(o.dir))
+                .Aggregate(companiasOrdenadas, (acc, o) => direcionadores[o.dir](o.column, acc)); ;
 
             var companiasExibidas = companiasOrdenadas.Skip(req.start).Take(req.length);
 
