@@ -50,34 +50,15 @@
         ],
         "ajax": {
             "url": "/Compania"
-            , "type": 'POST' // TODO: ainda nao funciona com GET
+            , "type": 'POST'
             , "dataType": 'json'
-            ,"contentType": 'application/json'
+            , "contentType": 'application/x-www-form-urlencoded; charset=UTF-8' // NOTE: 'application/json', nao funciona com DataTablesBinder
             , "data": function (d) {
                 $('#filtros').find('.dt-filtro').each(function () {
                     d[this.name] = this.value;
                 });
-                return JSON.stringify(d);
+                return d;
             }
         }
-
-        // exemplo com a api legada
-        //"columnDefs": [
-        //    { "targets": -1, "data": null, "name": "opcoes", "searchable": false, "sortable": false, "render": renderizarOpcoes }
-        //],
-        //"sAjaxSource": "/Compania",
-        //"fnServerData": function (sSource, aoData, fnCallback) {
-        //    $('#filtros .dt-filtro').each(function () {
-        //        aoData.push({ "name": this.name, "value": this.value });
-        //    });
-        //    $.ajax({
-        //        "dataType": 'json',
-        //        "type": 'POST',
-        //        "url": sSource,
-        //        "contentType": 'application/x-www-form-urlencoded; charset=UTF-8', // 'application/json', //
-        //        "data": aoData // JSON.stringify(aoData) //
-        //    })
-        //    .done(fnCallback)
-        //}
     });
 });
